@@ -1,0 +1,39 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: car
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/car_hmn"
+    username: postgres
+    password: 12345
+
+server:
+  port: 8085
+
+---
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,prometheus
+#  endpoint:
+#    prometheus:
+#      enabled: true
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  prometheus:
+    metrics:
+      export:
+        enabled: true

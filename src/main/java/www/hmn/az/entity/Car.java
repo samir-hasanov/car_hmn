@@ -3,6 +3,7 @@ package www.hmn.az.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import www.hmn.az.enums.CarStatus;
 
 
 import java.util.Date;
@@ -28,6 +29,12 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "mark_id")
     private Mark mark;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private CarStatus carStatus = CarStatus.AVAILABLE;
+
     @Builder.Default
     @Column(name = "create_time")
     @Temporal(TemporalType.TIMESTAMP)

@@ -1,6 +1,8 @@
 package www.hmn.az.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import www.hmn.az.dto.request.CarRequest;
@@ -58,6 +60,28 @@ public class CarServiceImpl implements CarService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return response;
+    }
+
+    @Override
+    public Response<Page<Car>> getAllCars(PageRequest pageable) {
+        Response response = new Response();
+
+        try {
+            Page car = carRepository.findAll(pageable);
+            if (car == null) {
+                throw new MyException(ExceptionConstants.NOT_FOUND, "car not found");
+            }
+
+            response.setT(car);
+            response.setStatus(ResponseStatus.getMessage());
+
+        } catch (MyException e) {
+            response.setStatus(new ResponseStatus(e.getCode(), e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return response;
     }
 }

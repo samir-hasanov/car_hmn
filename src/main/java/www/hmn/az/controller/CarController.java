@@ -3,14 +3,14 @@ package www.hmn.az.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import www.hmn.az.dto.request.CarRequest;
 import www.hmn.az.dto.response.Response;
+import www.hmn.az.entity.Car;
 import www.hmn.az.service.CarService;
 
 @RestController
@@ -30,6 +30,16 @@ public class CarController {
 
         return service.addCar(car,file);
     }
+
+   @GetMapping("/listCar")
+    public Response<Page<Car>> getAllCars(@RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "4") int size){
+       PageRequest pageable = PageRequest.of(page, size);
+
+       return service.getAllCars(pageable);
+
+   }
+
 
 
 

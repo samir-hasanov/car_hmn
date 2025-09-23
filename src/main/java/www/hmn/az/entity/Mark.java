@@ -25,7 +25,7 @@ public class Mark {
     @Column(name = "id")
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "mark",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "mark",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Car> cars = new ArrayList<>();
     @Builder.Default
     @Column(name = "create_time")

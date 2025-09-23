@@ -1,5 +1,6 @@
 package www.hmn.az.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,8 +27,9 @@ public class Car {
     private String transmission;
     @Column(length = 1000)
     private String imageUrl;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mark_id")
+    @JsonBackReference
     private Mark mark;
 
     @Enumerated(EnumType.STRING)
